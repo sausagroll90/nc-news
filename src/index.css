@@ -1,4 +1,28 @@
-:root {
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.article-card {
+  border: 2px solid black;
+  margin: 10px 0;
+  padding: 10px;
+  width: 550px;
+}
+
+.article-card img {
+  width: 150px;
+  height: 100px;
 }
