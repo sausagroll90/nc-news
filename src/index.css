@@ -43,10 +43,15 @@ nav {
 
 /* ArticlePage */
 
-.single-article {
+.article {
   width: 550px;
 }
 
-.single-article img {
+.article img {
   width: 100%;
+}
+
+.comment-card {
+  border-top: 1px solid black;
+  padding: 5px 0;
 }
