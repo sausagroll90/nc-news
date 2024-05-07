@@ -15,16 +15,16 @@ export default function ArticleCard({ article }) {
   const date = created_at.split("T")[0];
 
   return (
-    <div className="article-card">
-      <Link to={"/articles/" + article_id}>
+    <Link to={"/articles/" + article_id}>
+      <div className="article-card">
         <h2>{title}</h2>
-      </Link>
-      <p>{topic}</p>
-      <p>{author}</p>
-      <p>{date}</p>
-      <p>Votes: {votes}</p>
-      <p>Comments: {comment_count}</p>
-      <img src={article_img_url} alt="" />
-    </div>
+        <p>{topic}</p>
+        <p>{author}</p>
+        <p>{date}</p>
+        <p>Votes: {votes}</p>
+        <p>Comments: {comment_count}</p>
+        <img src={article_img_url} alt="" />
+      </div>
+    </Link>
   );
 }
