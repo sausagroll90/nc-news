@@ -13,7 +13,7 @@ export default function ArticleCard({ article }) {
     comment_count,
   } = article;
 
-  const date = getDateFromTimestamp(article.created_at);
+  const date = getDateFromTimestamp(created_at);
 
   return (
     <Link to={"/articles/" + article_id}>
