@@ -16,7 +16,7 @@ export default function CommentSection() {
   }, []);
 
   return (
-    <article>
+    <article className="comment-section">
       <h2>Comments</h2>
       <ul>
         {comments.map((comment) => {
