@@ -1,5 +1,8 @@
+import { Link } from "react-router-dom";
+
 export default function ArticleCard({ article }) {
   const {
+    article_id,
     title,
     topic,
     author,
@@ -13,7 +16,9 @@ export default function ArticleCard({ article }) {
 
   return (
     <div className="article-card">
-      <h2>{title}</h2>
+      <Link to={"/articles/" + article_id}>
+        <h2>{title}</h2>
+      </Link>
       <p>{topic}</p>
       <p>{author}</p>
       <p>{date}</p>

@@ -6,6 +6,7 @@ export default function ArticleList() {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
+    // TODO refactor to use async await
     getArticles().then((data) => {
       setArticles(data.articles);
     });
