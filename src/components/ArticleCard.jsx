@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getDateFromTimestamp } from "../modules/utils";
 
 export default function ArticleCard({ article }) {
   const {
@@ -12,7 +13,7 @@ export default function ArticleCard({ article }) {
     comment_count,
   } = article;
 
-  const date = created_at.split("T")[0];
+  const date = getDateFromTimestamp(article.created_at);
 
   return (
     <Link to={"/articles/" + article_id}>

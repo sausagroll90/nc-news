@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getCommentsByArticleId } from "../modules/api-requests";
+import { getDateFromTimestamp } from "../modules/utils";
 import CommentCard from "./CommentCard";
 
 export default function CommentSection() {
@@ -20,7 +21,7 @@ export default function CommentSection() {
       <h2>Comments</h2>
       <ul>
         {comments.map((comment) => {
-          const date = comment.created_at.split("T")[0];
+          const date = getDateFromTimestamp(comment.created_at);
           return (
             <li key={comment.comment_id}>
               <CommentCard comment={comment} date={date} />

@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getArticleById } from "../modules/api-requests";
+import { getDateFromTimestamp } from "../modules/utils";
 
 export default function Article() {
   const [article, setArticle] = useState({});
   const { article_id } = useParams();
 
-  const date = article.created_at ? article.created_at.split("T")[0] : "";
+  const date = article.created_at
+    ? getDateFromTimestamp(article.created_at)
+    : "";
 
   useEffect(() => {
     async function fetchArticle() {
