@@ -13,3 +13,10 @@ export async function getArticleById(id) {
     );
     return response.data;
 }
+
+export async function getCommentsByArticleId(id) {
+    const response = await axios.get(
+        `https://nc-news-yjss.onrender.com/api/articles/${id}/comments`
+    );
+    return response.data;
+}
