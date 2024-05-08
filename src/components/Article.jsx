@@ -59,20 +59,10 @@ export default function Article() {
       <p>{article.body}</p>
       <p>Votes: {article.votes}</p>
       <p>Comments: {article.comment_count}</p>
-      <button
-        onClick={() => {
-          handleUpvote();
-        }}
-        disabled={hasUpvoted}
-      >
+      <button onClick={() => handleUpvote()} disabled={hasUpvoted}>
         Vote Up
       </button>
-      <button
-        onClick={() => {
-          handleDownvote();
-        }}
-        disabled={hasDownvoted}
-      >
+      <button onClick={() => handleDownvote()} disabled={hasDownvoted}>
         Vote Down
       </button>
     </article>
