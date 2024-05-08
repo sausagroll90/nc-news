@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { postComment } from "../modules/api-requests";
+import { UserContext } from "../contexts/contexts";
 
 export default function AddComment({ setComments }) {
   const [input, setInput] = useState("");
-  const [user] = useState("weegembump");
+  const { user } = useContext(UserContext);
   const { article_id } = useParams();
 
   async function handleSubmit(event) {
@@ -22,7 +23,7 @@ export default function AddComment({ setComments }) {
         onChange={(event) => setInput(event.target.value)}
         value={input}
       />
-      <button onClick={(event) => handleSubmit(event)} disabled={!input}>
+      <button onClick={handleSubmit} disabled={!input}>
         Comment
       </button>
     </form>

@@ -1,12 +1,15 @@
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import { UserContext } from "./contexts/contexts";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import ArticlePage from "./components/ArticlePage";
 
 function App() {
+  const [user, setUser] = useState("weegembump");
   return (
-    <>
+    <UserContext.Provider value={{ user, setUser }}>
       <header>
         <Header />
       </header>
@@ -19,7 +22,7 @@ function App() {
           <Route path="/articles/:article_id" element={<ArticlePage />} />
         </Routes>
       </main>
-    </>
+    </UserContext.Provider>
   );
 }
 

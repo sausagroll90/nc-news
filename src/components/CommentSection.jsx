@@ -9,11 +9,13 @@ export default function CommentSection() {
   const [comments, setComments] = useState([]);
   const { article_id } = useParams();
 
+  async function fetchComments() {
+    console.log("fetching comments");
+    const { comments } = await getCommentsByArticleId(article_id);
+    setComments(comments);
+  }
+
   useEffect(() => {
-    async function fetchComments() {
-      const { comments } = await getCommentsByArticleId(article_id);
-      setComments(comments);
-    }
     fetchComments();
   }, []);
 
@@ -26,7 +28,11 @@ export default function CommentSection() {
           const date = getDateFromTimestamp(comment.created_at);
           return (
             <li key={comment.comment_id}>
-              <CommentCard comment={comment} date={date} />
+              <CommentCard
+                comment={comment}
+                date={date}
+                fetchComments={fetchComments}
+              />
             </li>
           );
         })}
