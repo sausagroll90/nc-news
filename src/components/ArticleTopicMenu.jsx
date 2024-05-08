@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getTopics } from "../modules/api-requests";
 
-export default function TopicSortMenu() {
+export default function ArticleTopicMenu() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [topics, setTopics] = useState([]);
   const [chosenTopic, setChosenTopic] = useState("all topics");
@@ -20,7 +20,9 @@ export default function TopicSortMenu() {
   }
 
   useEffect(() => {
-    setChosenTopic(searchParams.get("topic"));
+    if (searchParams.get("topic")) {
+      setChosenTopic(searchParams.get("topic"));
+    }
 
     async function fetchTopics() {
       const data = await getTopics();

@@ -1,10 +1,12 @@
 import ArticleList from "./ArticleList";
-import TopicSortMenu from "./TopicSortMenu";
+import ArticleSortByMenu from "./ArticleSortByMenu";
+import ArticleTopicMenu from "./ArticleTopicMenu";
 
 export default function Home() {
   return (
     <>
-      <TopicSortMenu />
+      <ArticleTopicMenu />
+      <ArticleSortByMenu />
       <ArticleList />
     </>
   );
