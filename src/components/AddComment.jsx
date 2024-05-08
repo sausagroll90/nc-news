@@ -4,17 +4,14 @@ import { postComment } from "../modules/api-requests";
 
 export default function AddComment({ setComments }) {
   const [input, setInput] = useState("");
-  const [isCommentButtonDisabled, setIsCommentButtonDisabled] = useState(false);
   const [user] = useState("weegembump");
   const { article_id } = useParams();
 
   async function handleSubmit(event) {
     event.preventDefault();
     setInput("");
-    setIsCommentButtonDisabled(true);
     const { comment } = await postComment(article_id, user, input);
     setComments((comments) => [comment, ...comments]);
-    setIsCommentButtonDisabled(false);
   }
 
   return (
@@ -25,10 +22,7 @@ export default function AddComment({ setComments }) {
         onChange={(event) => setInput(event.target.value)}
         value={input}
       />
-      <button
-        onClick={(event) => handleSubmit(event)}
-        disabled={isCommentButtonDisabled}
-      >
+      <button onClick={(event) => handleSubmit(event)} disabled={!input}>
         Comment
       </button>
     </form>
