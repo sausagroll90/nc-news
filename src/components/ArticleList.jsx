@@ -9,7 +9,12 @@ export default function ArticleList() {
 
   useEffect(() => {
     async function fetchArticles() {
-      const { articles } = await getArticles(searchParams.get("topic"));
+      const httpQueryParams = {};
+      for (const [key, value] of searchParams.entries()) {
+        httpQueryParams[key] = value;
+      }
+      console.log(httpQueryParams);
+      const { articles } = await getArticles(httpQueryParams);
       setArticles(articles);
     }
     fetchArticles();

@@ -1,17 +1,13 @@
 import axios from "axios";
 
-export async function getArticles(topic) {
-    let response;
-    if (topic) {
-        response = await axios.get(
-            "https://nc-news-yjss.onrender.com/api/articles",
-            { params: { topic } }
-        );
-    } else {
-        response = await axios.get(
-            "https://nc-news-yjss.onrender.com/api/articles"
-        );
-    }
+export async function getArticles(params) {
+    console.log("params -->", params);
+
+    const response = await axios.get(
+        "https://nc-news-yjss.onrender.com/api/articles",
+        { params }
+    );
+
     return response.data;
 }
 
