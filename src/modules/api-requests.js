@@ -28,3 +28,11 @@ export async function updateArticleVotes(id, amount) {
     );
     return response.data;
 }
+
+export async function postComment(article_id, username, body) {
+    const response = await axios.post(
+        `https://nc-news-yjss.onrender.com/api/articles/${article_id}/comments`,
+        { username: username, body: body }
+    );
+    return response.data;
+}
