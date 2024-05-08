@@ -10,7 +10,6 @@ export default function CommentSection() {
   const { article_id } = useParams();
 
   async function fetchComments() {
-    console.log("fetching comments");
     const { comments } = await getCommentsByArticleId(article_id);
     setComments(comments);
   }
