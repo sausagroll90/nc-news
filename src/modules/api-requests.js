@@ -1,9 +1,17 @@
 import axios from "axios";
 
-export async function getArticles() {
-    const response = await axios.get(
-        "https://nc-news-yjss.onrender.com/api/articles"
-    );
+export async function getArticles(topic) {
+    let response;
+    if (topic) {
+        response = await axios.get(
+            "https://nc-news-yjss.onrender.com/api/articles",
+            { params: { topic } }
+        );
+    } else {
+        response = await axios.get(
+            "https://nc-news-yjss.onrender.com/api/articles"
+        );
+    }
     return response.data;
 }
 
@@ -39,4 +47,11 @@ export async function postComment(article_id, username, body) {
 
 export async function deleteComment(id) {
     await axios.delete(`https://nc-news-yjss.onrender.com/api/comments/${id}`);
+}
+
+export async function getTopics() {
+    const response = await axios.get(
+        "https://nc-news-yjss.onrender.com/api/topics"
+    );
+    return response.data;
 }

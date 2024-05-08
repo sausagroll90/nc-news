@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { getArticles } from "../modules/api-requests";
 import ArticleCard from "./ArticleCard";
 
 export default function ArticleList() {
   const [articles, setArticles] = useState([]);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     async function fetchArticles() {
-      const { articles } = await getArticles();
+      const { articles } = await getArticles(searchParams.get("topic"));
       setArticles(articles);
     }
     fetchArticles();
-  }, []);
+  }, [searchParams]);
 
   return (
     <ul>
