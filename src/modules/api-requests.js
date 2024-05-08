@@ -36,3 +36,7 @@ export async function postComment(article_id, username, body) {
     );
     return response.data;
 }
+
+export async function deleteComment(id) {
+    await axios.delete(`https://nc-news-yjss.onrender.com/api/comments/${id}`);
+}
