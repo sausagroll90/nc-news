@@ -1,28 +1,50 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { APIError } from "./errors";
 
 export async function getArticles(params) {
-    console.log("params -->", params);
-
-    const response = await axios.get(
-        "https://nc-news-yjss.onrender.com/api/articles",
-        { params }
-    );
-
-    return response.data;
+    try {
+        const response = await axios.get(
+            "https://nc-news-yjss.onrender.com/api/articles",
+            { params }
+        );
+        return response.data;
+    } catch (e) {
+        if (e instanceof AxiosError) {
+            throw new APIError(e.response.data.msg, e.response.status);
+        } else {
+            throw e;
+        }
+    }
 }
 
 export async function getArticleById(id) {
-    const response = await axios.get(
-        `https://nc-news-yjss.onrender.com/api/articles/${id}`
-    );
-    return response.data;
+    try {
+        const response = await axios.get(
+            `https://nc-news-yjss.onrender.com/api/articles/${id}`
+        );
+        return response.data;
+    } catch (e) {
+        if (e instanceof AxiosError) {
+            throw new APIError(e.response.data.msg, e.response.status);
+        } else {
+            throw e;
+        }
+    }
 }
 
 export async function getCommentsByArticleId(id) {
-    const response = await axios.get(
-        `https://nc-news-yjss.onrender.com/api/articles/${id}/comments`
-    );
-    return response.data;
+    try {
+        const response = await axios.get(
+            `https://nc-news-yjss.onrender.com/api/articles/${id}/comments`
+        );
+        return response.data;
+    } catch (e) {
+        if (e instanceof AxiosError) {
+            throw new APIError(e.response.data.msg, e.response.status);
+        } else {
+            throw r;
+        }
+    }
 }
 
 export async function updateArticleVotes(id, amount) {
