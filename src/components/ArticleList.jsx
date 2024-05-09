@@ -10,11 +10,12 @@ export default function ArticleList({ setError }) {
 
   useEffect(() => {
     async function fetchArticles() {
-      // TODO refactor using reduce
-      const httpQueryParams = {};
-      for (const [key, value] of searchParams.entries()) {
-        httpQueryParams[key] = value;
-      }
+      const httpQueryParams = searchParams
+        .entries()
+        .reduce((params, [key, value]) => {
+          params[key] = value;
+          return params;
+        }, {});
 
       try {
         const { articles } = await getArticles(httpQueryParams);
