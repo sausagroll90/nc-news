@@ -53,7 +53,12 @@ export default function ArticleSortByMenu() {
   }
 
   return (
-    <select value={chosenSort} onChange={handleChange}>
+    <select
+      aria-label="sort results"
+      className="filter-menu"
+      value={chosenSort}
+      onChange={handleChange}
+    >
       <option value="date-latest">date (latest)</option>
       <option value="date-oldest">date (oldest)</option>
       <option value="votes">votes</option>

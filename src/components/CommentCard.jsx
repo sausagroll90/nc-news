@@ -14,15 +14,23 @@ export default function CommentCard({ comment, date, fetchComments }) {
 
   return (
     <article className="comment-card">
-      <p>{comment.body}</p>
-      <p>{comment.author}</p>
-      <p>{date}</p>
-      <p>Votes: {comment.votes}</p>
-      {comment.author === user ? (
-        <button onClick={() => handleClick()} disabled={isDeleteButtonDisabled}>
-          Delete
-        </button>
-      ) : null}
+      <div className="comment-author-date-wrapper">
+        <p>{comment.author}</p>
+        <p>{date}</p>
+      </div>
+      <p className="comment-body">{comment.body}</p>
+      <div className="comment-votes-delete-wrapper">
+        <p>Votes: {comment.votes}</p>
+        {comment.author === user ? (
+          <button
+            className="button"
+            onClick={() => handleClick()}
+            disabled={isDeleteButtonDisabled}
+          >
+            Delete
+          </button>
+        ) : null}
+      </div>
     </article>
   );
 }

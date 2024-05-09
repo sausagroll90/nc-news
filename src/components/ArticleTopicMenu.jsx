@@ -32,7 +32,12 @@ export default function ArticleTopicMenu() {
   }, []);
 
   return (
-    <select onChange={handleTopicChange} value={chosenTopic}>
+    <select
+      aria-label="topic"
+      className="filter-menu"
+      onChange={handleTopicChange}
+      value={chosenTopic}
+    >
       <option value="all topics">all topics</option>
       {topics.map((topic) => (
         <option key={topic.slug} value={topic.slug}>

@@ -61,19 +61,33 @@ export default function Article({ setError }) {
   return (
     <article className="article">
       <img src={article.article_img_url} alt="" />
-      <p>{article.topic}</p>
+      <div className="topic-date-wrapper">
+        <p>{article.topic}</p>
+        <p>{date}</p>
+      </div>
       <h2>{article.title}</h2>
-      <p>{article.author}</p>
-      <p>{date}</p>
-      <p>{article.body}</p>
-      <p>Votes: {article.votes}</p>
-      <p>Comments: {article.comment_count}</p>
-      <button onClick={() => handleUpvote()} disabled={hasUpvoted}>
-        Vote Up
-      </button>
-      <button onClick={() => handleDownvote()} disabled={hasDownvoted}>
-        Vote Down
-      </button>
+      <p className="author">{article.author}</p>
+      <p className="article-body">{article.body}</p>
+      <div className="votes-comments-wrapper">
+        <p>Votes: {article.votes}</p>
+        <p>Comments: {article.comment_count}</p>
+      </div>
+      <div className="vote-buttons-wrapper">
+        <button
+          className="button"
+          onClick={() => handleUpvote()}
+          disabled={hasUpvoted}
+        >
+          Vote Up
+        </button>
+        <button
+          className="button"
+          onClick={() => handleDownvote()}
+          disabled={hasDownvoted}
+        >
+          Vote Down
+        </button>
+      </div>
     </article>
   );
 }

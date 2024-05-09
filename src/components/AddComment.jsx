@@ -18,14 +18,21 @@ export default function AddComment({ setComments }) {
   return (
     <form>
       <label htmlFor="comment-input">Write a comment:</label>
-      <input
-        type="textarea"
+      <textarea
+        id="comment-input"
         onChange={(event) => setInput(event.target.value)}
         value={input}
       />
-      <button onClick={handleSubmit} disabled={!input}>
-        Comment
-      </button>
+      <div className="comment-button-wrapper">
+        <button
+          id="comment-button"
+          className="button"
+          onClick={handleSubmit}
+          disabled={!input}
+        >
+          Comment
+        </button>
+      </div>
     </form>
   );
 }
