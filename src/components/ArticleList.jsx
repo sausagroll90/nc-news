@@ -2,20 +2,30 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getArticles } from "../modules/api-requests";
 import ArticleCard from "./ArticleCard";
+import { APIError } from "../modules/errors";
 
-export default function ArticleList() {
+export default function ArticleList({ setError }) {
   const [articles, setArticles] = useState([]);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
     async function fetchArticles() {
+      // TODO refactor using reduce
       const httpQueryParams = {};
       for (const [key, value] of searchParams.entries()) {
         httpQueryParams[key] = value;
       }
-      console.log(httpQueryParams);
-      const { articles } = await getArticles(httpQueryParams);
-      setArticles(articles);
+
+      try {
+        const { articles } = await getArticles(httpQueryParams);
+        setArticles(articles);
+      } catch (e) {
+        if (e instanceof APIError) {
+          setError(e);
+        } else {
+          throw e;
+        }
+      }
     }
     fetchArticles();
   }, [searchParams]);

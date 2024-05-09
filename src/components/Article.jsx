@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getArticleById, updateArticleVotes } from "../modules/api-requests";
 import { getDateFromTimestamp } from "../modules/utils";
+import { APIError } from "../modules/errors";
 
-export default function Article() {
+export default function Article({ setError }) {
   const [article, setArticle] = useState({});
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [hasDownvoted, setHasDownvoted] = useState(false);
@@ -15,8 +16,16 @@ export default function Article() {
 
   useEffect(() => {
     async function fetchArticle() {
-      const { article } = await getArticleById(article_id);
-      setArticle(article);
+      try {
+        const { article } = await getArticleById(article_id);
+        setArticle(article);
+      } catch (e) {
+        if (e instanceof APIError) {
+          setError(e);
+        } else {
+          throw e;
+        }
+      }
     }
     fetchArticle();
   }, []);
