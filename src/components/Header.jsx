@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <>
       <h1>NC News</h1>
-      <p>Logged in as: {user}</p>
+      <p>User: {user}</p>
     </>
   );
 }

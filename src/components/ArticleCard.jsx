@@ -18,12 +18,16 @@ export default function ArticleCard({ article }) {
   return (
     <Link to={"/articles/" + article_id}>
       <div className="article-card">
-        <h2>{title}</h2>
-        <p>{topic}</p>
-        <p>{author}</p>
-        <p>{date}</p>
-        <p>Votes: {votes}</p>
-        <p>Comments: {comment_count}</p>
+        <div className="article-card-title">
+          <h2>{title}</h2>
+          <p>{author}</p>
+        </div>
+        <p className="article-card-topic">{topic}</p>
+        <p className="article-card-date">{date}</p>
+        <div className="article-card-votes-comments">
+          <p>Votes: {votes}</p>
+          <p>Comments: {comment_count}</p>
+        </div>
         <img src={article_img_url} alt="" />
       </div>
     </Link>
