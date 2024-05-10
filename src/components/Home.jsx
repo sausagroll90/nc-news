@@ -14,11 +14,16 @@ export default function Home({ setError }) {
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
 
+  const ARTICLE_LIMIT = 10;
+
   useEffect(() => {
     async function fetchArticles() {
       setIsLoading(true);
       try {
-        const { articles, total_count } = await getArticles(searchParams);
+        const { articles, total_count } = await getArticles(
+          searchParams,
+          ARTICLE_LIMIT
+        );
         setIsLoading(false);
         setArticles(articles);
         setTotalCount(total_count);
@@ -44,7 +49,10 @@ export default function Home({ setError }) {
       ) : (
         <ArticleList articles={articles} setError={setError} />
       )}
-      <PageNavigationButtons totalCount={totalCount} />
+      <PageNavigationButtons
+        perPageLimit={ARTICLE_LIMIT}
+        totalCount={totalCount}
+      />
     </>
   );
 }

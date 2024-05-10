@@ -1,10 +1,13 @@
 import axios, { AxiosError } from "axios";
 import { APIError } from "./errors";
 
-export async function getArticles(params) {
+export async function getArticles(params, limit) {
     const searchParams = new URLSearchParams(params);
     if (!searchParams.get("p")) {
         searchParams.set("p", 1);
+    }
+    if (limit) {
+        searchParams.set("limit", limit);
     }
     try {
         const response = await axios.get(
@@ -43,7 +46,8 @@ export async function getCommentsByArticleId(id, page, limit) {
 
     try {
         const response = await axios.get(
-            `https://nc-news-yjss.onrender.com/api/articles/${id}/comments`
+            `https://nc-news-yjss.onrender.com/api/articles/${id}/comments`,
+            { params: searchParams }
         );
         return response.data;
     } catch (e) {

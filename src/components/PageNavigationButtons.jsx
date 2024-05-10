@@ -1,9 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 
-export default function PageNavigationButtons({ totalCount }) {
+export default function PageNavigationButtons({ perPageLimit, totalCount }) {
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const ARTICLE_LIMIT = 10;
 
   function nextPage() {
     const currentPage = searchParams.get("p") || "1";
@@ -30,7 +28,7 @@ export default function PageNavigationButtons({ totalCount }) {
       </button>
       <button
         className="button"
-        disabled={Number(searchParams.get("p")) * ARTICLE_LIMIT > totalCount}
+        disabled={Number(searchParams.get("p")) * perPageLimit > totalCount}
         onClick={nextPage}
       >
         Next page

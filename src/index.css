@@ -298,3 +298,10 @@ main {
   justify-content: space-between;
   align-items: center;
 }
+
+/* Error Page */
+
+.error-heading {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}

@@ -1,29 +1,38 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { getCommentsByArticleId } from "../modules/api-requests";
 import AddComment from "./AddComment";
 import CommentCard from "./CommentCard";
 import LoadingSpinner from "./LoadingSpinner";
+import PageNavigationButtons from "./PageNavigationButtons";
 
-export default function CommentSection() {
+export default function CommentSection({ commentCount }) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { article_id } = useParams();
+  const [searchParams] = useSearchParams();
+
+  const COMMENT_LIMIT = 5;
 
   async function fetchComments() {
-    const { comments } = await getCommentsByArticleId(article_id);
+    const page = Number(searchParams.get("p")) || 1;
+    const { comments: newComments } = await getCommentsByArticleId(
+      article_id,
+      page,
+      COMMENT_LIMIT
+    );
     setIsLoading(false);
-    setComments(comments);
+    setComments(newComments);
   }
 
   useEffect(() => {
     fetchComments();
-  }, []);
+  }, [searchParams]);
 
   return (
     <article className="comment-section">
       <h2>Comments</h2>
-      <AddComment setComments={setComments} />
+      <AddComment fetchComments={fetchComments} />
       {isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -37,6 +46,10 @@ export default function CommentSection() {
           })}
         </ul>
       )}
+      <PageNavigationButtons
+        perPageLimit={COMMENT_LIMIT}
+        totalCount={commentCount}
+      />
     </article>
   );
 }
