@@ -10,15 +10,8 @@ export default function ArticleList({ setError }) {
 
   useEffect(() => {
     async function fetchArticles() {
-      const httpQueryParams = searchParams
-        .entries()
-        .reduce((params, [key, value]) => {
-          params[key] = value;
-          return params;
-        }, {});
-
       try {
-        const { articles } = await getArticles(httpQueryParams);
+        const { articles } = await getArticles(searchParams);
         setArticles(articles);
       } catch (e) {
         if (e instanceof APIError) {
