@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getCommentsByArticleId } from "../modules/api-requests";
-import { getDateFromTimestamp } from "../modules/utils";
 import AddComment from "./AddComment";
 import CommentCard from "./CommentCard";
 import LoadingSpinner from "./LoadingSpinner";
@@ -30,14 +29,9 @@ export default function CommentSection() {
       ) : (
         <ul>
           {comments.map((comment) => {
-            const date = getDateFromTimestamp(comment.created_at);
             return (
               <li key={comment.comment_id}>
-                <CommentCard
-                  comment={comment}
-                  date={date}
-                  fetchComments={fetchComments}
-                />
+                <CommentCard comment={comment} fetchComments={fetchComments} />
               </li>
             );
           })}

@@ -248,6 +248,7 @@ main {
 
 .comment-section form {
   padding-top: 10px;
+  width: 100%;
 }
 
 #comment-input {
@@ -273,6 +274,11 @@ main {
   font-size: 0.9rem;
   display: flex;
   justify-content: space-between;
+}
+
+.comment-date-time-wrapper p {
+  display: inline;
+  padding-left: 10px;
 }
 
 .comment-body {

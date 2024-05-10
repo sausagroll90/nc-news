@@ -1,8 +1,8 @@
 # TODO
 
 - [x] Loading animations
-- [ ] Better feedback when offline
-- [ ] Undo votes
-- [ ] Time as well as date on comments
+- [x] Better feedback when offline
+- [x] Undo votes
+- [x] Time as well as date on comments
 - [ ] Pagination
 - [ ] More functionality!
