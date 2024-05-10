@@ -31,7 +31,7 @@ export default function CommentCard({ comment, fetchComments }) {
         {comment.author === user ? (
           <button
             className="button"
-            onClick={() => handleClick()}
+            onClick={handleClick}
             disabled={isDeleteButtonDisabled}
           >
             Delete

@@ -1,5 +1,5 @@
-import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { UserContext } from "./contexts/contexts";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
@@ -10,6 +10,11 @@ import ErrorPage from "./components/ErrorPage";
 function App() {
   const [user, setUser] = useState("weegembump");
   const [error, setError] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    setError(null);
+  }, [searchParams]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

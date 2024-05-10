@@ -230,6 +230,14 @@ main {
   padding-top: 5px;
 }
 
+.page-navigation-buttons {
+  padding: 15px 20px;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Comment Section */
 
 .comment-section {
