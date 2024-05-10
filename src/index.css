@@ -47,6 +47,14 @@ a {
   background-color: rgb(225, 225, 225);
 }
 
+.upvoted {
+  background-color: rgb(150, 255, 150);
+}
+
+.downvoted {
+  background-color: rgb(255, 150, 150);
+}
+
 .loading-spinner {
   padding-top: 20px;
 }
@@ -110,6 +118,7 @@ main {
 /* Home */
 
 .filter-wrapper {
+  width: 100%;
   padding-top: 20px;
   padding-bottom: 10px;
   display: flex;
