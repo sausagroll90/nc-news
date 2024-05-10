@@ -1,11 +1,18 @@
 import axios, { AxiosError } from "axios";
 import { APIError } from "./errors";
 
-export async function getArticles(params) {
+export async function getArticles(params, limit) {
+    const searchParams = new URLSearchParams(params);
+    if (!searchParams.get("p")) {
+        searchParams.set("p", 1);
+    }
+    if (limit) {
+        searchParams.set("limit", limit);
+    }
     try {
         const response = await axios.get(
             "https://nc-news-yjss.onrender.com/api/articles",
-            { params }
+            { params: searchParams }
         );
         return response.data;
     } catch (e) {
@@ -32,17 +39,22 @@ export async function getArticleById(id) {
     }
 }
 
-export async function getCommentsByArticleId(id) {
+export async function getCommentsByArticleId(id, page, limit) {
+    const searchParams = new URLSearchParams();
+    searchParams.set("p", page || null);
+    searchParams.set("limit", limit || null);
+
     try {
         const response = await axios.get(
-            `https://nc-news-yjss.onrender.com/api/articles/${id}/comments`
+            `https://nc-news-yjss.onrender.com/api/articles/${id}/comments`,
+            { params: searchParams }
         );
         return response.data;
     } catch (e) {
         if (e instanceof AxiosError) {
             throw new APIError(e.response.data.msg, e.response.status);
         } else {
-            throw r;
+            throw e;
         }
     }
 }

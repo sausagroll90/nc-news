@@ -4,7 +4,7 @@ import { postComment } from "../modules/api-requests";
 import { APIError } from "../modules/errors";
 import { UserContext } from "../contexts/contexts";
 
-export default function AddComment({ setComments }) {
+export default function AddComment({ fetchComments, setCommentCount }) {
   const [input, setInput] = useState("");
   const [isOffline, setIsOffline] = useState(false);
   const { user } = useContext(UserContext);
@@ -15,8 +15,9 @@ export default function AddComment({ setComments }) {
     setInput("");
     try {
       const { comment } = await postComment(article_id, user, input);
-      setComments((comments) => [comment, ...comments]);
+      setCommentCount((commentCount) => commentCount + 1);
       setIsOffline(false);
+      fetchComments();
     } catch (e) {
       if (e instanceof APIError && e.status === "offline") {
         setIsOffline(true);

@@ -5,4 +5,5 @@
 - [x] Undo votes
 - [x] Time as well as date on comments
 - [ ] Pagination
+- [ ] Undo votes
 - [ ] More functionality!

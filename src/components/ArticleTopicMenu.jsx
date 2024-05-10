@@ -11,6 +11,8 @@ export default function ArticleTopicMenu() {
     setChosenTopic(event.target.value);
 
     const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("p", 1);
+
     if (event.target.value === "all topics") {
       newSearchParams.delete("topic");
     } else {

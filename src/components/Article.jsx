@@ -1,37 +1,16 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getArticleById, updateArticleVotes } from "../modules/api-requests";
+import { useState } from "react";
+import { updateArticleVotes } from "../modules/api-requests";
 import { getDateFromTimestamp } from "../modules/utils";
 import { APIError } from "../modules/errors";
 import LoadingSpinner from "./LoadingSpinner";
 
-export default function Article({ setError }) {
-  const [article, setArticle] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+export default function Article({ article, setArticle, commentCount }) {
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [hasDownvoted, setHasDownvoted] = useState(false);
-  const { article_id } = useParams();
 
   const date = article.created_at
     ? getDateFromTimestamp(article.created_at)
     : "";
-
-  useEffect(() => {
-    async function fetchArticle() {
-      try {
-        const { article } = await getArticleById(article_id);
-        setIsLoading(false);
-        setArticle(article);
-      } catch (e) {
-        if (e instanceof APIError) {
-          setError(e);
-        } else {
-          throw e;
-        }
-      }
-    }
-    fetchArticle();
-  }, []);
 
   async function handleUpvote() {
     setHasUpvoted(true);
@@ -79,9 +58,7 @@ export default function Article({ setError }) {
     }
   }
 
-  return isLoading ? (
-    <LoadingSpinner />
-  ) : (
+  return (
     <article className="article">
       <img src={article.article_img_url} alt="" />
       <div className="topic-date-wrapper">
@@ -93,7 +70,7 @@ export default function Article({ setError }) {
       <p className="article-body">{article.body}</p>
       <div className="votes-comments-wrapper">
         <p>Votes: {article.votes}</p>
-        <p>Comments: {article.comment_count}</p>
+        <p>Comments: {commentCount}</p>
       </div>
       <div className="vote-buttons-wrapper">
         <button
