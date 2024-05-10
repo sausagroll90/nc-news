@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { updateArticleVotes } from "../modules/api-requests";
 import { APIError } from "../modules/errors";
+import voteImg from "../assets/vote-border.svg";
+import voteImgSolid from "../assets/vote-solid.svg";
 
 export default function VoteButtons({ article_id, setArticle }) {
   const [hasUpvoted, setHasUpvoted] = useState(false);
@@ -82,17 +84,19 @@ export default function VoteButtons({ article_id, setArticle }) {
   }
   return (
     <div className="vote-buttons-wrapper">
-      <button
-        className={"button" + (hasUpvoted ? " upvoted" : "")}
-        onClick={handleUpvote}
-      >
-        Vote Up
+      <button aria-label="upvote" className="button" onClick={handleUpvote}>
+        <img
+          className="upvote"
+          src={hasUpvoted ? voteImgSolid : voteImg}
+          alt="upvote"
+        />
       </button>
-      <button
-        className={"button" + (hasDownvoted ? " downvoted" : "")}
-        onClick={handleDownvote}
-      >
-        Vote Down
+      <button aria-label="downvote" className="button" onClick={handleDownvote}>
+        <img
+          className="downvote"
+          src={hasDownvoted ? voteImgSolid : voteImg}
+          alt="downvote"
+        />
       </button>
     </div>
   );

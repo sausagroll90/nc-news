@@ -308,6 +308,15 @@ main {
   align-items: center;
 }
 
+.upvote {
+  height: 100%;
+}
+
+.downvote {
+  height: 100%;
+  transform: rotate(180deg);
+}
+
 /* Error Page */
 
 .error-heading {
