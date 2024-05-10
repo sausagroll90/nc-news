@@ -1,4 +1,8 @@
 # TODO
 
-- Display message when no comments to show
-- Votes should update to show failure when user offline
+- [x] Loading animations
+- [x] Better feedback when offline
+- [x] Undo votes
+- [x] Time as well as date on comments
+- [ ] Pagination
+- [ ] More functionality!

@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom";
 import { getArticleById, updateArticleVotes } from "../modules/api-requests";
 import { getDateFromTimestamp } from "../modules/utils";
 import { APIError } from "../modules/errors";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function Article({ setError }) {
   const [article, setArticle] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [hasDownvoted, setHasDownvoted] = useState(false);
   const { article_id } = useParams();
@@ -18,6 +20,7 @@ export default function Article({ setError }) {
     async function fetchArticle() {
       try {
         const { article } = await getArticleById(article_id);
+        setIsLoading(false);
         setArticle(article);
       } catch (e) {
         if (e instanceof APIError) {
@@ -39,9 +42,18 @@ export default function Article({ setError }) {
     } else {
       VOTES_CHANGE = 1;
     }
-    setArticle({ ...article, votes: article.votes + VOTES_CHANGE });
-    const data = await updateArticleVotes(article.article_id, VOTES_CHANGE);
-    setArticle({ ...article, votes: data.article.votes });
+    try {
+      setArticle({ ...article, votes: article.votes + VOTES_CHANGE });
+      const data = await updateArticleVotes(article.article_id, VOTES_CHANGE);
+      setArticle({ ...article, votes: data.article.votes });
+    } catch (e) {
+      if (e instanceof APIError && e.status === "offline") {
+        setHasUpvoted(false);
+        setArticle({ ...article, votes: article.votes });
+      } else {
+        throw e;
+      }
+    }
   }
 
   async function handleDownvote() {
@@ -53,12 +65,23 @@ export default function Article({ setError }) {
     } else {
       VOTES_CHANGE = -1;
     }
-    setArticle({ ...article, votes: article.votes + VOTES_CHANGE });
-    const data = await updateArticleVotes(article.article_id, VOTES_CHANGE);
-    setArticle({ ...article, votes: data.article.votes });
+    try {
+      setArticle({ ...article, votes: article.votes + VOTES_CHANGE });
+      const data = await updateArticleVotes(article.article_id, VOTES_CHANGE);
+      setArticle({ ...article, votes: data.article.votes });
+    } catch (e) {
+      if (e instanceof APIError && e.status === "offline") {
+        setHasDownvoted(false);
+        setArticle({ ...article, votes: article.votes });
+      } else {
+        throw e;
+      }
+    }
   }
 
-  return (
+  return isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <article className="article">
       <img src={article.article_img_url} alt="" />
       <div className="topic-date-wrapper">

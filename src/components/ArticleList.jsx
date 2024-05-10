@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getArticles } from "../modules/api-requests";
-import ArticleCard from "./ArticleCard";
 import { APIError } from "../modules/errors";
+import ArticleCard from "./ArticleCard";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function ArticleList({ setError }) {
   const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
     async function fetchArticles() {
-      const httpQueryParams = searchParams
-        .entries()
-        .reduce((params, [key, value]) => {
-          params[key] = value;
-          return params;
-        }, {});
-
+      setIsLoading(true);
       try {
-        const { articles } = await getArticles(httpQueryParams);
+        const { articles } = await getArticles(searchParams);
+        setIsLoading(false);
         setArticles(articles);
       } catch (e) {
         if (e instanceof APIError) {
@@ -31,7 +28,9 @@ export default function ArticleList({ setError }) {
     fetchArticles();
   }, [searchParams]);
 
-  return (
+  return isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <ul>
       {articles.map((article) => (
         <li key={article.article_id}>
