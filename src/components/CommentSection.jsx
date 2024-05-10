@@ -6,7 +6,7 @@ import CommentCard from "./CommentCard";
 import LoadingSpinner from "./LoadingSpinner";
 import PageNavigationButtons from "./PageNavigationButtons";
 
-export default function CommentSection({ commentCount }) {
+export default function CommentSection({ commentCount, setCommentCount }) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { article_id } = useParams();
@@ -32,7 +32,10 @@ export default function CommentSection({ commentCount }) {
   return (
     <article className="comment-section">
       <h2>Comments</h2>
-      <AddComment fetchComments={fetchComments} />
+      <AddComment
+        fetchComments={fetchComments}
+        setCommentCount={setCommentCount}
+      />
       {isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -40,7 +43,11 @@ export default function CommentSection({ commentCount }) {
           {comments.map((comment) => {
             return (
               <li key={comment.comment_id}>
-                <CommentCard comment={comment} fetchComments={fetchComments} />
+                <CommentCard
+                  comment={comment}
+                  fetchComments={fetchComments}
+                  setCommentCount={setCommentCount}
+                />
               </li>
             );
           })}

@@ -9,6 +9,7 @@ import LoadingSpinner from "./LoadingSpinner";
 export default function ArticlePage({ setError }) {
   const [article, setArticle] = useState({});
   const [isArticleLoading, setIsArticleLoading] = useState(true);
+  const [commentCount, setCommentCount] = useState(0);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -17,6 +18,7 @@ export default function ArticlePage({ setError }) {
         const { article } = await getArticleById(article_id);
         setIsArticleLoading(false);
         setArticle(article);
+        setCommentCount(article.comment_count);
       } catch (e) {
         if (e instanceof APIError) {
           setError(e);
@@ -37,9 +39,13 @@ export default function ArticlePage({ setError }) {
           setError={setError}
           article={article}
           setArticle={setArticle}
+          commentCount={commentCount}
         />
       )}
-      <CommentSection commentCount={article.comment_count} />
+      <CommentSection
+        commentCount={commentCount}
+        setCommentCount={setCommentCount}
+      />
     </>
   );
 }

@@ -4,7 +4,7 @@ import { getDateFromTimestamp } from "../modules/utils";
 import { APIError } from "../modules/errors";
 import LoadingSpinner from "./LoadingSpinner";
 
-export default function Article({ article, setArticle }) {
+export default function Article({ article, setArticle, commentCount }) {
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [hasDownvoted, setHasDownvoted] = useState(false);
 
@@ -70,7 +70,7 @@ export default function Article({ article, setArticle }) {
       <p className="article-body">{article.body}</p>
       <div className="votes-comments-wrapper">
         <p>Votes: {article.votes}</p>
-        <p>Comments: {article.comment_count}</p>
+        <p>Comments: {commentCount}</p>
       </div>
       <div className="vote-buttons-wrapper">
         <button

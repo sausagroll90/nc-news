@@ -3,7 +3,11 @@ import { UserContext } from "../contexts/contexts";
 import { deleteComment } from "../modules/api-requests";
 import { getDateFromTimestamp, getTimeFromTimestamp } from "../modules/utils";
 
-export default function CommentCard({ comment, fetchComments }) {
+export default function CommentCard({
+  comment,
+  fetchComments,
+  setCommentCount,
+}) {
   const { user } = useContext(UserContext);
   const [isDeleteButtonDisabled, setIsDeleteButtonDisabled] = useState(false);
 
@@ -13,6 +17,7 @@ export default function CommentCard({ comment, fetchComments }) {
   async function handleClick() {
     setIsDeleteButtonDisabled(true);
     await deleteComment(comment.comment_id);
+    setCommentCount((commentCount) => commentCount - 1);
     fetchComments();
   }
 
